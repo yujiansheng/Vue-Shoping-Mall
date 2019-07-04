@@ -44,14 +44,15 @@ export default {
   data () {
     return {
         lunbotulist:[
-            {url:11,img:'http://static5.pixhey.com/thumbs/1000970/image/499/4991144/api_thumb_450.jpg'},
-            {url:12,img:'http://st.pixhey.com/thumbs/1000315/image/4544/45442033/api_thumb_450.jpg'},
-            {url:13,img:'http://st4.pixhey.com/thumbs/12985790/image/20159/201592954/api_thumb_450.jpg'}
+            {url:12,img:'http://sinastorage.com/storage.zone.photo.sina.com.cn/focus/201906/3dff551f890f292b7d262c2198d55247.jpg?&ssig=eVpJMY16Vo&KID=sina,slidenews&Expires=1562236055'},
+            {url:13,img:'http://sinastorage.com/storage.zone.photo.sina.com.cn/focus/201906/fd857e57d203dedef25cf00ee089a9f1.jpg?&ssig=ZrfTfGtGTA&KID=sina,slidenews&Expires=1562236055'},
+            {url:14,img:'http://s.img.mix.sina.com.cn/auto/resize?size=328_218&img=http%3A%2F%2Fsinastorage.com%2Fstorage.zone.photo.sina.com.cn%2Fzone%2Fimg%2F20190510%2F1d8a20e0899d483f6a04c73e95e17f37.jpg%3F%26ssig%3D4WetwrCAy0%26KID%3Dsina%2Cslidenews%26Expires%3D1562231462'}
+
         ]//保存轮播图的数据
     };
   },
   created() {
-      this.getLunbotu();
+     // this.getLunbotu();
   },
   methods: {
       getLunbotu(){
@@ -74,15 +75,15 @@ export default {
 .mint-swipe{
     height:200px;
     .mint-swipe-item{
-        &:nth-child(1){//&是交集选择器的意思
-            background-color:yellowgreen;
-        }
-           &:nth-child(2){//&是交集选择器的意思
-            background-color:violet;
-        }
-           &:nth-child(3){//&是交集选择器的意思
-            background-color:yellow;
-        }
+        // &:nth-child(1){//&是交集选择器的意思
+        //     background-color:yellowgreen;
+        // }
+        //    &:nth-child(2){//&是交集选择器的意思
+        //     background-color:violet;
+        // }
+        //    &:nth-child(3){//&是交集选择器的意思
+        //     background-color:yellow;
+        // }
         img{
             width:100%;
             height:100%;
