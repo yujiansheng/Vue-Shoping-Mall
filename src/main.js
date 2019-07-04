@@ -13,5 +13,5 @@ Vue.component(Header.name,Header)
 
 var vm = new Vue({
     el:"#app",
-    render:h=>h(app)
+    render:h=>h(app)   
 })
