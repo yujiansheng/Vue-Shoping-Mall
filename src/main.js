@@ -5,6 +5,7 @@ import Vue from 'vue'
 import {Header} from 'mint-ui'
 
 import './lib/mui/css/mui.css'
+import './lib/mui/css/icons-extra.css'
 
 //导入根组件
 import app from './APP.vue'
