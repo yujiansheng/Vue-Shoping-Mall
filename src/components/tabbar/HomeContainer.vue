@@ -6,9 +6,11 @@
         </mt-swipe-item>
     </mt-swipe>
     <ul class="mui-table-view mui-grid-view mui-grid-9">
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu1.png" alt="" srcset="">
-                <div class="mui-media-body">新闻资讯</div></a>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <router-link to="/home/newslist">
+             <img src="../../images/menu1.png" alt="" srcset="">
+             <div class="mui-media-body">新闻资讯</div>
+            </router-link>
         </li>
 
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
@@ -38,25 +40,24 @@
 </div>
 </template>
 <script>
-import {Toast} from 'mint-ui'
 export default {
   name: "home",
   data () {
     return {
         lunbotulist:[
-            {url:12,img:'http://sinastorage.com/storage.zone.photo.sina.com.cn/focus/201906/3dff551f890f292b7d262c2198d55247.jpg?&ssig=eVpJMY16Vo&KID=sina,slidenews&Expires=1562236055'},
-            {url:13,img:'http://sinastorage.com/storage.zone.photo.sina.com.cn/focus/201906/fd857e57d203dedef25cf00ee089a9f1.jpg?&ssig=ZrfTfGtGTA&KID=sina,slidenews&Expires=1562236055'},
-            {url:14,img:'http://s.img.mix.sina.com.cn/auto/resize?size=328_218&img=http%3A%2F%2Fsinastorage.com%2Fstorage.zone.photo.sina.com.cn%2Fzone%2Fimg%2F20190510%2F1d8a20e0899d483f6a04c73e95e17f37.jpg%3F%26ssig%3D4WetwrCAy0%26KID%3Dsina%2Cslidenews%26Expires%3D1562231462'}
+            {url:12,img:'https://7n.w3cschool.cn/attachments/knowledge/201904/86459.png'},
+            {url:13,img:'https://7n.w3cschool.cn/attachments/knowledge/201906/69680.png'},
+            {url:14,img:'https://7n.w3cschool.cn/attachments/knowledge/201901/42502.png'}
 
         ]//保存轮播图的数据
     };
   },
   created() {
-     // this.getLunbotu();
+      //this.getLunbotu();
   },
   methods: {
       getLunbotu(){
-          this.$http.get('http://vue.studyit.io/api/getlunbo').then(result=>{
+          this.$http.get('api/getlunbo').then(result=>{
              if(result.body.status===0){
                  //成功
                 this.lunbotulist = result.body.message;
