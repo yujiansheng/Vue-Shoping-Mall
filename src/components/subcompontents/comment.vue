@@ -5,56 +5,16 @@
     <mt-button type='primary' size='large'>发表评论</mt-button>
     <!-- 评论区 -->
     <div class="cmt-list">
-        <div class="cmt-item">
+        <div class="cmt-item" v-for="(item, i) in comments" :key="i">
             <div class="cmt-title">
-                第1楼&nbsp;&nbsp;用户:匿名用户&nbsp;&nbsp;发表时间:2012-12-12 12:00:12
+                第{{i+1}}楼&nbsp;&nbsp;用户 : {{item.user_name}}&nbsp;&nbsp;发表时间 : {{item.add_time | dateFormat}}
             </div>
             <div class="cmt-body">
-                第一次看到以亿为单位的收听量
+               {{item.content||'此用户很懒，没有留下评论'}}
             </div>
         </div>
+    <mt-button type='danger' size='large' plain @click='getMore'>加载更多</mt-button>
     </div>
-        <div class="cmt-list">
-        <div class="cmt-item">
-            <div class="cmt-title">
-                第1楼&nbsp;&nbsp;用户:匿名用户&nbsp;&nbsp;发表时间:2012-12-12 12:00:12
-            </div>
-            <div class="cmt-body">
-                第一次看到以亿为单位的收听量
-            </div>
-        </div>
-    </div>
-        <div class="cmt-list">
-        <div class="cmt-item">
-            <div class="cmt-title">
-                第1楼&nbsp;&nbsp;用户:匿名用户&nbsp;&nbsp;发表时间:2012-12-12 12:00:12
-            </div>
-            <div class="cmt-body">
-                第一次看到以亿为单位的收听量
-            </div>
-        </div>
-    </div>
-        <div class="cmt-list">
-        <div class="cmt-item">
-            <div class="cmt-title">
-                第1楼&nbsp;&nbsp;用户:匿名用户&nbsp;&nbsp;发表时间:2012-12-12 12:00:12
-            </div>
-            <div class="cmt-body">
-                第一次看到以亿为单位的收听量
-            </div>
-        </div>
-    </div>
-        <div class="cmt-list">
-        <div class="cmt-item">
-            <div class="cmt-title">
-                第1楼&nbsp;&nbsp;用户:匿名用户&nbsp;&nbsp;发表时间:2012-12-12 12:00:12
-            </div>
-            <div class="cmt-body">
-                第一次看到以亿为单位的收听量
-            </div>
-        </div>
-    </div>
-    <mt-button type='danger' size='large' plain>加载更多</mt-button>
 </div>
 </template>
 <script>
@@ -62,9 +22,39 @@ export default {
   name: "comment",
   data () {
     return {
+        pageIndex:1,//默认展示第一页数据
+        comments:[
+            {user_name:'匿名用户',add_time:'2016-02-15T10:19:03.000Z',content:'我来踩一下！'},
+            {user_name:'小明同学',add_time:'2015-04-19T22:19:30.000Z',content:null},
+            {user_name:'Tom Ming',add_time:'2015-04-19T20:09:30.000Z',content:'这个网站是真的吊！'}
+            ]
     };
-  }
-}
+  },
+  created() {
+    //  this.getComments();
+  },
+  methods: {
+      getComments(){//获取评论
+          this.$http.get('api/getcomments/'+this.id+'?pageindex='+this.pageIndex).then(result=>{
+              if(result.body.status===0){
+                  //每当获取新数据时，应当使用老数据拼接老数据，而不是直接覆盖
+                  this.comments=this.comments.concat(result.body.message) ;
+              }else{
+                  Toast('获取评论失败')
+              }
+          },result=>{
+               Toast('获取评论,网络请求失败');
+               this.comments=this.comments.concat(this.comments) ;
+          })
+      },
+      getMore(){
+          this.pageIndex++;
+          this.getComments();
+
+      }
+  },
+  props:['id']//接收父组件的传值
+} 
 </script>
 <style lang="scss" scoped>
 .cmt-container{
