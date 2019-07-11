@@ -106,11 +106,11 @@ export default {
     };
   },
   created() {
-	  //this.getNewsList();
+	  this.getNewsList();
   },
   methods: {
     getNewsList() {
-      this.$http.get("api/getnewslist").then(result => {
+      this.$http.get("http://www.liulongbin.top:3005/api/getnewslist").then(result => {
         if (result.body.status === 0) {
           //如果成功，把数据保存到data上
           this.newslist = result.body.message;

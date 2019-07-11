@@ -61,3 +61,33 @@
 1. 为加载更多按钮，绑定点击事件，在事件中，请求下一页数据
 2. 点击加载更多，让 pageIdex++,然后重新调用 this.getComments() 方法重新获取最新一页的数据
 3. 为了防止 新数据 覆盖老数据的情况，我们在 点击加载更多的时候，每当获取到新数据，是 老数据调用 concat 的方式 拼接新数据
+
+### 发表评论
+1. 把文本框做双向数据绑定
+2. 为发表评论按钮绑定一个事件
+3. 校验评论内容是否为空，如果为空，则Toast提示用户 评论内容不能为空
+4. 通过 vue-resource 发送一个请求，把评论内容提交给到 服务器
+5. 当发表评论OK后，重新刷新列表，以查看最新的评论
+  + 如果调用 getComments 方法重新刷新评论列表的话，可能只能得到 最后一项的评论，前几页的评论获取不到
+  + 换一种方式: 当评论成功后，在客户端，手动拼接出一个 最新的评论对象 然后调用 数组的 unshift 方法,追加到 data 中 comments 的开头；这样就能完美实现刷新评论列表的需求 
+
+### 改造图片分析 按钮为 路由的链接并显示对应的组件页面
+
+### 绘制 图片列表 组件页面并美华样式
+1. 制作 顶部的滑动条
+2. 制作 底部的图片列表
+
+### 使用 MUI 的顶部滑动块的坑
+1. 滑动块无法正常触发滑动，通过检查官方文档，发现这个是JS组件，需要被初始化一下：
+  + 导入 mui.js
+  + 调用官方的 方式 初始化:
+  ```
+  mui('.mui-scroll-wrapper').scroll({
+	deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+  });
+  ```
+2. 在初始化 滑动条 的时候，导入的 mui.js 但是控制报错:
+    `Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them`
+    + 推测原因: 可能是mui.js中用到了 'caller' 'callee' and 'arguments' ,但是 webpack 打包好的 bundle.js中，默认是启用严格模式的，所以这两者冲突了
+    + 解决方案: 1. 把mui.js中非严格代码修改掉(不现实) 2. 把webpack打包的严格模式移除
+    + 最终 选择 移除严格模式：使用插件 [babel-plugin-transform-remove-strict-mode](https://github.com/yujiansheng/babel-plugin-transform-remove-strict-mode)

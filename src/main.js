@@ -14,10 +14,13 @@ Vue.filter('dateFormat',function(dataStr,pattern='YYYY-MM-DD HH:mm:ss'){
 
 //导入 vue-resource 
 import VueResource from 'vue-resource'
-//安装 vue-resource //就可以通过 this.$http()发起请求
+//安装 vue-resource 
+//就可以通过 this.$http()发起请求
 Vue.use(VueResource)
 //设置请求的根路径
-Vue.http.options.root = 'http://vue.studyit.io';
+//Vue.http.options.root = 'http://vue.studyit.io';
+//全局设置 post 时候表单数据格式组织形式  application/x-www-form-urlencoded
+Vue.http.options.emulateJSON = true;
 
 
 import './lib/mui/css/mui.css'
