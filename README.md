@@ -91,3 +91,22 @@
     + 推测原因: 可能是mui.js中用到了 'caller' 'callee' and 'arguments' ,但是 webpack 打包好的 bundle.js中，默认是启用严格模式的，所以这两者冲突了
     + 解决方案: 1. 把mui.js中非严格代码修改掉(不现实) 2. 把webpack打包的严格模式移除
     + 最终 选择 移除严格模式：使用插件 [babel-plugin-transform-remove-strict-mode](https://github.com/yujiansheng/babel-plugin-transform-remove-strict-mode)
+
+3. 刚进入 图片分享页面的时候，滑动条无法正常工作，经过分析发现，如果要初始化滑动条，必须等到 DOM 元素加载完毕，所以我们把滑动条的代码搬到了 mounted 生命周期函数中；
+4. 当滑动条调试好后，发现 tabbar 无法正常工作，这时候我们需要把每个 tabbar 按钮的央视中 `mui-tab-item` 重新改一下名字
+5. 获取所有分类，并渲染 分类列表
+
+### 制作图片列表区域
+1. 图片列表使用懒加载，使用 Mint-UI 的组件`lazy-load`
+2. 导入并使用 `lazy-load` 
+3. 渲染图片数据
+
+### 实现了 图片列表的 懒加载改造和样式美化
+1. 在改造 li 成 router-link 的时候，需要使用 tag 属性指定要渲染为 那种元素
+ 
+### 实现 详情页面的布局和美化，同时获取数据渲染页面
+
+### 尝试在手机上 去进行项目的预览和测试
+1. 要保证自己的手机可以正常使用
+2. 要保证 手机 和 PC 在同一 WIFI 中
+3. 在项目 package.json 中添加 --hoost 指令 把当前 PC 的ip设为 --host的值

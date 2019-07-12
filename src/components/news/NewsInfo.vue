@@ -9,7 +9,7 @@
     </p>
     <hr>
     <!-- 内容区域 -->
-    <div class="content" >&nbsp;&nbsp;&nbsp;&nbsp;{{newsinfo.content+newsinfo.content}}</div>
+    <div class="content" v-html="newsinfo.content"></div>
     
     <!-- 评论区域 -->
     <comment-box :id='this.id'></comment-box>
@@ -18,16 +18,18 @@
 <script>
 import comment from '../subcompontents/comment.vue'
 export default {
-  name: "newsinfo",
   data () {
     return {
         id:this.$route.params.ID,//将url传过来的id值挂载在data上面
         newsinfo:{
             id:14,
-            title:'第一次看到以亿为单位的收听量',
+            title:'科比-天才之所以伟大源于学习',
             click:3,
             add_time:'2019-06-09T13:50:56.000Z',
-            content:'少一些抱怨吧，珍惜你所拥有的，不要在以后的某个日子，你怀揣歉意对自己说，假如重新来过，我一定不会怎样怎样。可是我想说，假如真的给你一次重新来过的机会，又有多少人能够百分百活成你说的样子……你没见过，物似人非的样子？'
+            content:'<p style="text-indent:2em;">科比堪称NBA最勤奋的球员，他的人生信条就是：篮球就是生命。科比的天赋也许不是联盟中最顶级的，'
+            +'但所有人都听说他的洛杉矶凌晨四点太阳的故事，科比正是通过不断的练习，将自己训练成一部篮球机器，不断学习和完善自己的篮球技巧，终于修炼成一代篮球大神。'
+            +'</p><img style="width:100%" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3314342572,928780460&fm=173&s=0370588748D289ED5ED5CC9D03004083&w=600&h=295&img.JPEG"/>'
+            +'<img style="width:100%" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3344292755,3771886723&fm=173&s=92D3E32589529ED8141C759703007082&w=599&h=297&img.JPEG"/>'
         }
     };
   },
@@ -40,7 +42,7 @@ export default {
                   Toast('获取新闻内容失败')
               }
           },result=>{
-              Toast('获取新闻内容,网络请求失败')
+              //Toast('获取新闻内容,网络请求失败')
           })
       }
   },

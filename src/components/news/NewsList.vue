@@ -18,7 +18,6 @@
 </template>
 <script>
 export default {
-  name: "newslist",
   data() {
     return {
       newslist: [
@@ -118,7 +117,7 @@ export default {
           Toast("获取新闻列表失败");
         }
 	  },result=>{
-		  Toast("获取新闻列表,网络请求失败");
+		  //Toast("获取新闻列表,网络请求失败");
 	  });
     }
   }
