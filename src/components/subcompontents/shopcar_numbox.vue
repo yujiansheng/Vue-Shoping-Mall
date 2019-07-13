@@ -12,23 +12,17 @@ export default {
   data() {
     return {};
   },
-  watch:{
-      'max'(newval,oldval){ 
-        mui('.mui-numbox').numbox().setOption('max',newval)
-      }
-  },
   methods: {
       countChanged(){
-         //console.log(mui('.mui-numbox').numbox().getValue()); 
-         //console.log(this.$refs.numberbox.value); 
-         this.$emit('getcount',parseInt(this.$refs.numberbox.value));
       }
   },
-  props:['max'],
-    mounted() {
+  mounted() {
       mui('.mui-numbox').numbox()
   }
 };
 </script>
 <style lang="scss" scoped>
+.mui-numbox{
+    height:25px;
+}
 </style>

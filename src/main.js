@@ -48,6 +48,45 @@ window.Toast = Toast;
 import VuePreview from 'vue-preview'
 Vue.use(VuePreview)
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+var car_num = JSON.parse(localStorage.getItem('car')||'[]');
+
+var store = new Vuex.Store({//将vuex创建的vuex实列挂载到vm上任何组件都能通过$store的方式访问到
+    state:{
+        //相当于组件的data
+        //如果在组建中想要访问store中的数据，只能通过$store.state.***访问
+        car: car_num //保存购物车里面的商品数据 {id:商品的id，count：购买的数量，price：商品的单价，selected：是否已选中}
+    },
+    mutations:{//通过this.$store.commit(方法名称，‘唯一参数’)//如果要操作store中的state值，只能通过调用mutations 提供的方法，才能操作对应的数据，不推荐直接操作state中的数据，因为如果数据紊乱，不能快速的定位到错误的原因
+        addToCar(state,goodsinfo){
+            var bool=false;
+            state.car.some(item=>{
+                if (item.id == goodsinfo.id){
+                    item.count += parseInt(goodsinfo.count);
+                    bool = true;
+                    return true;
+                }
+            })
+            if(!bool){
+                state.car.push(goodsinfo);
+            }
+
+            //当更新car后 将car数组保存到localStorage中
+            localStorage.setItem('car',JSON.stringify(state.car));
+        }
+    },
+    getters:{
+        getAllCount(state){
+            var c=0;
+            state.car.forEach(item=>{
+                c+=item.count;
+            })
+            return c;
+        }
+    }
+})
  
 
 //导入路由
@@ -56,5 +95,6 @@ import router from './router.js'
 var vm = new Vue({
     el:"#app",
     router,
+    store,
     render:h=>h(app)   
 })

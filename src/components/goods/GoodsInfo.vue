@@ -107,6 +107,10 @@ export default {
       },
       addToShopCar(){
           this.ballFlag=!this.ballFlag;
+          setTimeout(() => { 
+          var goodsinfo = {id:this.id,count:this.selectedcount,price:this.goodsinfo.sell_price,selected:false}
+          this.$store.commit('addToCar',goodsinfo);
+          }, 600);
       },
       beforeEnter(el){
           el.style.transform = 'translate(0,0)'
@@ -138,7 +142,7 @@ export default {
       },
       getSelectedCount(count){
           this.selectedcount = count;
-          console.log(`父组件拿到的数量：${this.selectedcount}`);
+          //console.log(`父组件拿到的数量：${this.selectedcount}`);
       }
   }
 };
