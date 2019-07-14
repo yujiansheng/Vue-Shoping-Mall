@@ -1,7 +1,7 @@
 <template>
 <div class='app-container'>
     <!-- 顶部 Header 区域 -->
-    <mt-header fixed title="NBA商城"></mt-header>
+    <!-- <mt-header fixed title="NBA商城"></mt-header> -->
     <!-- 中间 路由 router-view 区域 -->
 	<transition>
 	<router-view></router-view>
@@ -41,7 +41,7 @@ export default {
     z-index: 99;
 }
 .app-container{
-	padding-top: 40px;
+	// padding-top: 40px;
 	padding-bottom: 50px;
 	overflow-x: hidden;
 }

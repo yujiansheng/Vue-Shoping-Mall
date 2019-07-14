@@ -2,17 +2,17 @@
 <div class="shopcar-container">
   <!-- 商品列表区域 -->
   <div class="goodslist">
-<div class="mui-card">
+<div class="mui-card" v-for="(item,index) in goodslist" :key="item.id">
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
             <mt-switch></mt-switch>
-            <img src="http://img14.360buyimg.com/n1/s450x450_jfs/t30844/352/184888909/271400/2e654ec0/5bea36fcN60094750.jpg" alt="">
+            <img :src="item.thumb_path" alt="" />
             <div class="info">
-              <h1>Hasee/神舟 战神Z6/Z7M/G7M 英特尔九代酷睿i7/i5 GTX1650独显游戏本 15.6吋窄边</h1>
+              <h1>{{item.title}}</h1>
               <p>
-                <span class="price">￥5199</span>
-                <numbox></numbox>
-                <a href="#" id="">删除</a>
+                <span class="price">￥{{item.sell_price}}</span>
+                <numbox :initcount='$store.getters.getGoodsCount[item.id]' :goodsid='item.id'></numbox>
+                <a href="#" @click.prevent="remove(item.id,index)">删除</a>
               </p>
             </div>
 					</div>
@@ -34,10 +34,34 @@ import numbox from '../subcompontents/shopcar_numbox.vue'
 export default {
   data () {
     return {
+       goodslist:[]//购物车中所有商品的数据
     };
   },
   components:{
     numbox
+  },
+  created() {
+    this.getGoodsList();
+  },
+  methods:{
+    getGoodsList(){
+      var idArr = [];
+      this.$store.state.car.forEach(item => idArr.push(item.id));
+      if(idArr.length==0) return ;
+      this.$http.get('api/goods/getshopcarlist/'+idArr.join(',')).then(result=>{
+        if(result.body.status===0){
+             this.goodslist = result.body.message;
+        }else{
+          Toast('获取购物车商品列表失败')
+        }
+      },result=>{
+        //Toast('获取购物车商品列表,网络请求失败');
+      })
+    },
+    remove(id,i){
+       this.goodslist.splice(i,1);
+       this.$store.commit('removeFromCar',id);
+    }
   }
 }
 </script>
@@ -46,27 +70,28 @@ export default {
   background-color: #eee;
   overflow: hidden;
   .goodslist{
-    img{
-      width: 60px;
-      height: 60px;
-    }
-    h1{
-      font-size: 13px;
-    }
-    .info{
-      display: flex;
-      flex-direction: column;//flex 纵向布局
-      justify-content:space-between;
-      .price{
-        color: red;
-      }
-      p{
-        margin:0;
-      }
-    }
     .mui-card-content-inner{
       display: flex;//flex布局 是内部元素横向排列
       align-items: center; //纵向居中
+      img{
+        width: 60px;
+        height: 60px;
+        flex-shrink:0;
+      }
+      .info{
+        display: flex;
+        flex-direction: column;//flex 纵向布局
+        justify-content:space-between;
+        h1{
+          font-size: 13px;
+        }
+        .price{
+          color: red;
+        }
+        p{
+          margin:0;
+        }
+      }
     }
   }
 }

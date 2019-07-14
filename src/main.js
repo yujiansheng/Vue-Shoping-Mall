@@ -75,6 +75,26 @@ var store = new Vuex.Store({//将vuex创建的vuex实列挂载到vm上任何组�
 
             //当更新car后 将car数组保存到localStorage中
             localStorage.setItem('car',JSON.stringify(state.car));
+        },
+        updateGoodsInfo(state,goodsinfo){
+            state.car.some(item=>{
+                if (item.id == goodsinfo.id){
+                    item.count = parseInt(goodsinfo.count);
+                    return true;
+                }
+            })
+             //当修改完商品数量，把最新的保存到 本地存储中
+             localStorage.setItem('car', JSON.stringify(state.car));
+        },
+        removeFromCar(state,id){
+              state.car.some((item,i)=>{
+                  if(item.id==id){
+                      state.car.splice(i,1);
+                      return true;
+                  }
+              })
+              //将删除完成后的最新的数据保存到 本地存储中
+              localStorage.setItem('car', JSON.stringify(state.car));
         }
     },
     getters:{
@@ -84,6 +104,11 @@ var store = new Vuex.Store({//将vuex创建的vuex实列挂载到vm上任何组�
                 c+=item.count;
             })
             return c;
+        },
+        getGoodsCount(state){
+            var o={};
+            state.car.forEach(item=>o[item.id]=item.count);
+            return o;
         }
     }
 })
